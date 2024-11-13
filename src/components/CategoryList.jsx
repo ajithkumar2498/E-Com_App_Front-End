@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import SummaryAPI from '../common'
 import { Link } from 'react-router-dom'
-import "../app.css"
+
 
 const CategoryList = () => {
     const [categoryProduct,setCategoryProduct]=useState([])
