@@ -8,7 +8,7 @@ import SummaryAPI from './common';
 import Context from './context';
 import {useDispatch} from "react-redux"
 import { setUserDetails } from './store/userSlice';
-import './app.css'
+import "../src/app.css"
 
 
 const App = () => {
