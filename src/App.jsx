@@ -25,8 +25,6 @@ const App = () => {
     if(dataApi.success){
        dispatch(setUserDetails(dataApi.data))
     }
-
-    console.log("data-user", dataApi)
   }
    
   const fetchUserAddToCart = async ()=>{
@@ -36,7 +34,6 @@ const App = () => {
   })
 
   const dataApi = await fetchResponse.json()
-  console.log("cart", dataApi)
   setCartProductCount(dataApi?.data?.count)
 
   }
