@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import fetchCategoryWiseProduct from '../helpers/fetchCategoryWiseProduct'
-import "../app.css"
 import displayINRCurrency from '../helpers/DisplayCurrency'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 import addToCart from '../helpers/AddToCart'
