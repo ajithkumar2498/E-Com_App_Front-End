@@ -33,7 +33,7 @@ export const Login = () => {
         e.preventDefault()
         const dataResponse = await fetch(SummaryAPI.SignIn.url,{
             method: SummaryAPI.SignIn.method,
-            withCredentials : true,
+            credentials: 'include',
             headers:{
                 "content-type":"application/json"
             },
