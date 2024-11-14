@@ -1,4 +1,4 @@
-const backendDomain = "https://e-com-app-back-end.onrender.com"
+const backendDomain ="https://e-com-app-back-end.onrender.com"
 const SummaryAPI = {
    SignUp : {
      url: `${backendDomain}/api/users/signup`,
