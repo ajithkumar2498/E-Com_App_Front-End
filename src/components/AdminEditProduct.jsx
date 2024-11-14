@@ -65,7 +65,7 @@ const handleSubmit = async (e)=>{
 e.preventDefault()
 const fetchResponse = await fetch(SummaryAPI.updateProduct.url, {
   method:SummaryAPI.updateProduct.method,
-  credentials:'include',
+  withCredentials : true,
   headers:{
     "content-type" : "application/json"
   },

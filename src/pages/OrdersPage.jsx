@@ -11,7 +11,7 @@ const OrdersPage = () => {
   const fetchOrderDetails = async ()=>{
     const fetchdata = await fetch(SummaryAPI.getOrder.url, {
       method : SummaryAPI.getOrder.method,
-      credentials : "include"
+      withCredentials : true
     })
 
     const responseData = await fetchdata.json()

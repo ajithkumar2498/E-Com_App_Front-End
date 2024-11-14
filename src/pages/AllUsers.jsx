@@ -22,7 +22,7 @@ const[updateUserDetails, setUpdateUserDetails] =useState({
 const fetchAllUsers = async()=>{
     const fetchResponse = await fetch(SummaryAPI.allUser.url,{
         method:SummaryAPI.allUser.method,
-        credentials:'include'
+        withCredentials : true
     })
 
     const dataResponse = await fetchResponse.json()
