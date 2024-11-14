@@ -41,6 +41,7 @@ const App = () => {
   useEffect(()=>{
     /** user Details */
     fetchUserDetails()
+    console.log()
      /** user cart Products */
     fetchUserAddToCart()
 
