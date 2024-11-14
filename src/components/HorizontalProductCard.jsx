@@ -5,6 +5,8 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import addToCart from '../helpers/AddToCart'
 import Context from '../context'
+
+
 const HorizontalProductCard = ({
     category, heading
 }) => {
