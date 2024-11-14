@@ -17,7 +17,7 @@ const App = () => {
   const fetchUserDetails = async ()=>{
     const fetchResponse = await fetch(SummaryAPI.current_user.url,{
         method: SummaryAPI.current_user.method,
-        credentials:'include'
+        withCredentials: true
     })
 
     const dataApi = await fetchResponse.json()
