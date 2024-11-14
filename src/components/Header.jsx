@@ -14,7 +14,7 @@ import Context from '../context';
 
 const Header = () => {
   const user = useSelector(state=>state?.user?.user)
-  console.log("user",user)
+  console.log("user")
   const dispatch = useDispatch()
   const[menuDisplay, SetMenuDisplay] = useState(false)
   const context = useContext(Context)
