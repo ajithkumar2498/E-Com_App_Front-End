@@ -12,12 +12,15 @@ import { setUserDetails } from './store/userSlice';
 
 
 const App = () => {
+  
   const dispatch = useDispatch()
+
   const [cartProductCount, setCartProductCount] = useState(0)
+
   const fetchUserDetails = async ()=>{
     const fetchResponse = await fetch(SummaryAPI.current_user.url,{
         method: SummaryAPI.current_user.method,
-        withCredentials: true
+        credentials: 'include'
     })
 
     const dataApi = await fetchResponse.json()
