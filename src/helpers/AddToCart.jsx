@@ -3,6 +3,7 @@ import {toast }from "react-toastify"
 
 
 const addToCart = async (e,id)=>{
+  const token = sessionStorage.getItem("token")
   
   e?.stopPropagation()
   e?.preventDefault()
@@ -11,7 +12,8 @@ const addToCart = async (e,id)=>{
     method:SummaryAPI.addToCartProduct.method,
     credentials: 'include',
     headers:{
-      "content-type" : "application/json"
+      "content-type" : "application/json",
+      Authorization : `Bearer ${token}`
     },
     body : JSON.stringify(
      { productId : id}

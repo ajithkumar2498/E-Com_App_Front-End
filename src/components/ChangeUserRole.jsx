@@ -15,6 +15,7 @@ const ChangeUserRole = ({
 }) => {
 
   const [userRole,setUserRole] = useState(role)
+  const token = sessionStorage.getItem("token")
 
   const handleOnChangeSelect = (e)=>{
       setUserRole(e.target.value)
@@ -25,8 +26,9 @@ const ChangeUserRole = ({
           method:SummaryAPI.updateUser.method,
           credentials: 'include',
           headers:{
-            "content-type":"application/json"
-          },
+                "content-type" : "application/json",
+                Authorization : `Bearer ${token}`
+            },
           body: JSON.stringify({
                  userId: userId,
                  role:userRole,

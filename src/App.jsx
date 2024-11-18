@@ -12,6 +12,8 @@ import { setUserDetails } from './store/userSlice';
 
 
 const App = () => {
+  const token = sessionStorage.getItem('token')
+  console.log(token)
   
   const dispatch = useDispatch()
 
@@ -20,10 +22,15 @@ const App = () => {
   const fetchUserDetails = async ()=>{
     const fetchResponse = await fetch(SummaryAPI.current_user.url,{
         method: SummaryAPI.current_user.method,
-        credentials: 'include'
+        headers: {
+          "Content-Type": "application/json", // Always include this if sending/receiving JSON
+          Authorization: `Bearer ${token}`, // Include token in Authorization header
+        },
+        credentials: "include",
     })
 
     const dataApi = await fetchResponse.json()
+    // console.log(dataApi.data)
 
     if(dataApi.success){
        dispatch(setUserDetails(dataApi.data))
@@ -33,7 +40,11 @@ const App = () => {
   const fetchUserAddToCart = async ()=>{
     const fetchResponse = await fetch(SummaryAPI.countAddToCart.url,{
       method: SummaryAPI.countAddToCart.method,
-      credentials:'include'
+      credentials:'include',
+      headers: {
+        "Content-Type": "application/json", // Always include this if sending/receiving JSON
+        Authorization: `Bearer ${token}`, // Include token in Authorization header
+      },
   })
 
   const dataApi = await fetchResponse.json()
@@ -44,7 +55,6 @@ const App = () => {
   useEffect(()=>{
     /** user Details */
     fetchUserDetails()
-    console.log()
      /** user cart Products */
     fetchUserAddToCart()
 

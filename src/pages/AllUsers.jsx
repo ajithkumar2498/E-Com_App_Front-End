@@ -4,10 +4,12 @@ import moment from 'moment'
 import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import ChangeUserRole from '../components/ChangeUserRole';
+import { toast } from 'react-toastify';
 
 
 
 const AllUsers = () => {
+const token = sessionStorage.getItem("token")
 
 const [allUsers, setAllUsers]=useState([])
 
@@ -22,7 +24,11 @@ const[updateUserDetails, setUpdateUserDetails] =useState({
 const fetchAllUsers = async()=>{
     const fetchResponse = await fetch(SummaryAPI.allUser.url,{
         method:SummaryAPI.allUser.method,
-        credentials:"include"
+        credentials:"include",
+        headers:{
+                "content-type" : "application/json",
+                Authorization : `Bearer ${token}`
+            },
     })
 
     const dataResponse = await fetchResponse.json()

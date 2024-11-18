@@ -13,6 +13,7 @@ onClose,
 productData,
 fetchData
 }) => {
+  const token = sessionStorage.getItem("token")
   const [data,setData]=useState({
     ...productData,
     productName:productData?.productName,
@@ -67,7 +68,8 @@ const fetchResponse = await fetch(SummaryAPI.updateProduct.url, {
   method:SummaryAPI.updateProduct.method,
   credentials: 'include',
   headers:{
-    "content-type" : "application/json"
+    "content-type" : "application/json",
+     Authorization : `Bearer ${token}`
   },
   body: JSON.stringify(data)
 })

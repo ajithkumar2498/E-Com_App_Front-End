@@ -14,6 +14,7 @@ const UploadProducts = ({
     fetchData
 }) => {
  
+     const token = sessionStorage.getItem("token")
      const [data,setData]=useState({
         productName:"",
         BrandName:"",
@@ -67,8 +68,9 @@ const UploadProducts = ({
       method:SummaryAPI.uploadProduct.method,
       credentials: 'include',
       headers:{
-        "content-type" : "application/json"
-      },
+                "content-type" : "application/json",
+                Authorization : `Bearer ${token}`
+            },
       body: JSON.stringify(data)
     })
 

@@ -8,7 +8,7 @@ import {loadStripe} from '@stripe/stripe-js';
 
 
 const Cart = () => {
-
+    const token = sessionStorage.getItem("token")
     const [data,setData] = useState([])
     const [loading,setLoading] = useState(false)
     const context = useContext(Context)
@@ -20,19 +20,21 @@ const Cart = () => {
             method:SummaryAPI.viewCart.method,
             credentials:"include",
             headers:{
-                "content-type" : "applicationjson"
+                "content-type" : "application/json",
+                Authorization : `Bearer ${token}`
             }
         })
 
        
 
         const responseData = await response.json()
+        console.log(responseData)
           
         if(responseData.success){
             setData(responseData.data)
             // setLoading()
         }
-        console.log("cart-date",data)
+        console.log("cart-datA",data)
     }
     const handleLoading = async ()=>{
             await fetchData()
@@ -49,7 +51,8 @@ const Cart = () => {
         method:SummaryAPI.updateCartProduct.method,
         credentials:"include",
         headers:{
-            "content-type" : "application/json"
+            "content-type" : "application/json",
+            Authorization : `Bearer ${token}`
         },
         body: JSON.stringify(payload)
        })
@@ -61,18 +64,21 @@ const Cart = () => {
     }
 
     const decreaseQty = async (id,qty)=>{
+        
         if(qty >= 2){
             const payload = { _id: id, quantity: qty-1 }
             const response = await fetch(SummaryAPI.updateCartProduct.url,{
             method:SummaryAPI.updateCartProduct.method,
             credentials:"include",
             headers:{
-                "content-type" : "application/json"
+                "content-type" : "application/json",
+                Authorization : `Bearer ${token}`
             },
             body: JSON.stringify(payload)
            })
     
            const responseData = await response.json()
+           console.log(responseData)
            if(responseData.success){
             fetchData()
            }
@@ -85,7 +91,8 @@ const Cart = () => {
             method:SummaryAPI.deleteCartProduct.method,
             credentials:"include",
             headers:{
-                "content-type" : "application/json"
+                "content-type" : "application/json",
+                Authorization : `Bearer ${token}`
             },
             body: JSON.stringify({_id:id})
            })
@@ -105,7 +112,8 @@ const Cart = () => {
         method:SummaryAPI.payment.method,
         credentials:"include",
         headers:{
-            "content-type" : "application/json"
+            "content-type" : "application/json",
+            Authorization : `Bearer ${token}`
         },
         body: JSON.stringify({
             cartItems : data
@@ -116,7 +124,8 @@ const Cart = () => {
        if(responseData?.id){
         stripePromise.redirectToCheckout({sessionId:responseData?.id})
        }
-       console.log(responseData)
+       console.log("paymentData",responseData)
+      
     }
 
  const totalQty = data.reduce((prev, curr)=> prev + curr.quantity ,0)
@@ -164,7 +173,7 @@ const Cart = () => {
                                   <p className='text-slate-600 font-semibold text-lg'>{displayINRCurrency(product?.productId?.sellingPrice * product?.quantity)}</p>
                                   </div>
                                   <div className=' mt-1 flex items-center gap-3'>
-                                    <button className='border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white w-6 h-6 flex justify-center items-center rounded' onClick={()=> decreaseQty(product?._id, product?.quantity) }>-</button>
+                                    <button className='border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white w-6 h-6 flex justify-center items-center rounded' onClick={()=>  decreaseQty(product?._id, product?.quantity) }>-</button>
                                     <span>{product?.quantity}</span>
                                     <button className='border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white  w-6 h-6 flex justify-center items-center rounded' onClick={()=> increaseQty(product?._id, product?.quantity) }>+</button>
                                   </div>

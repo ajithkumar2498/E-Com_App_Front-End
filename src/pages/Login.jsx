@@ -42,6 +42,7 @@ export const Login = () => {
 
         const data1 = await dataResponse.json()
         console.log(data1)
+        sessionStorage.setItem("token",data1.data)
         if(data1.success){
             toast.success(data1.message)
             navigate('/')

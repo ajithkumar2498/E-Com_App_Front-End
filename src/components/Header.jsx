@@ -24,23 +24,44 @@ const Header = () => {
   const searchQuery = URLsearch.getAll("q")
   const[search, setSearch]=useState(searchQuery)
 
-  const handleLogout = async ()=>{
-       const fetchData = await fetch(SummaryAPI.Logout.url,{
-        method:SummaryAPI.Logout.method,
-         credentials: 'include'
-       })
-
-       const data = await fetchData.json()
-
-       if(data.success){
-        toast.success(data.message)
-        dispatch(setUserDetails(null))
-        nav("/")
-       }
-       if(data.error){
-        toast.error(data.error)
-       }
-  }
+  const handleLogout = async () => {
+    const token = sessionStorage.getItem("token"); // Retrieve token from sessionStorage
+    console.log(token)
+  
+    if (!token) {
+      toast.error("No token found. Please log in again.");
+      return;
+    }
+  
+    try {
+      const fetchData = await fetch(SummaryAPI.Logout.url, {
+        method: SummaryAPI.Logout.method,
+        headers: {
+          "Content-Type": "application/json", // Ensuring the request is sent as JSON
+          Authorization: `Bearer ${token}`,  // Sending the token in the Authorization header
+        },
+        credentials: "include",  // Include credentials (cookies, if any)
+      });
+  
+      const data = await fetchData.json();
+  
+      if (data.success) {
+        toast.success(data.message);
+        sessionStorage.removeItem("token");  // Remove the token from sessionStorage
+        dispatch(setUserDetails(null));  // Clear user details from Redux
+        nav("/");  // Redirect to home or login page
+      }
+  
+      if (data.error) {
+        toast.error(data.error);  // Display any errors from the response
+      }
+  
+    } catch (error) {
+      console.error("Error during logout:", error);
+      toast.error("Logout failed. Please try again.");
+    }
+  };
+  
 
   const handleSearch = (e)=>{
     const {value} = e.target

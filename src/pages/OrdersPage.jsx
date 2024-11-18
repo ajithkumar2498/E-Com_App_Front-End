@@ -5,20 +5,23 @@ import moment from 'moment'
 import displayINRCurrency from '../helpers/DisplayCurrency'
 
 const OrdersPage = () => {
+  const token = sessionStorage.getItem("token")
 
   const [data, setData] = useState([])
 
   const fetchOrderDetails = async ()=>{
     const fetchdata = await fetch(SummaryAPI.getOrder.url, {
       method : SummaryAPI.getOrder.method,
-      withCredentials : true
+      credentials:"include",
+            headers:{
+                "content-type" : "application/json",
+                Authorization : `Bearer ${token}`
+            },
     })
 
     const responseData = await fetchdata.json()
     setData(responseData.data)
-    console.log("order list", responseData)
-    console.log('data', data)
-     
+    console.log("order list", responseData.data)    
   }
 
   useEffect(()=>{
