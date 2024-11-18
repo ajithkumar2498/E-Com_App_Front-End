@@ -92,7 +92,7 @@ useEffect(()=>{
                                     } >
                                     <FiEdit />
                                     </button>
-                                    <button className='bg-green-200, p-2 rounded-full cursor-pointer hover:bg-green-500' onClick={()=>DeleteUser(el._id)}><MdDelete />
+                                    <button className='bg-green-200, p-2 rounded-full cursor-pointer hover:bg-green-500' onClick={()=>DeleteUser(el._id, token, fetchAllUsers)}><MdDelete />
                                     </button>
                                 </td>
                             </tr>

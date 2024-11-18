@@ -1,21 +1,28 @@
-import React from 'react'
+import { toast } from "react-toastify";
+import SummaryAPI from "../common";
 
-const DeleteUser = async ({id}) => {
-    const fetchResponse  =  await fetch(SummaryAPI.deleteUser.url, {
-                method: SummaryAPI.deleteUser.method,
-                credentials:"include",
-                headers:{
-                        "content-type" : "application/json",
-                        Authorization : `Bearer ${token}`
-                    },
-                body: JSON.stringify({
-                    userId: id,
-             })
-            })
-        
-            console.log("delete response", fetchResponse)
+const DeleteUser = async (userId, token, fetchAllUsers) => {
 
-  return
-}
+  try {
+    const response = await fetch(`${SummaryAPI.deleteUser.url}/${userId}`, {
+      method: SummaryAPI.deleteUser.method,
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-export default DeleteUser
+    const data = await response.json();
+
+    if (data.success) {
+      toast.success(data.message || "User deleted successfully");
+      fetchAllUsers(); // Refresh the users list after successful deletion
+    } else {
+      toast.error(data.message || "Failed to delete user");
+    }
+  } catch (error) {
+    toast.error(error.message || "An error occurred while deleting the user");
+  }
+};
+
+export default DeleteUser;
