@@ -20,6 +20,10 @@ const SummaryAPI = {
     url:`${backendDomain}/api/users/all-users`,
     method:"get"
    },
+   deleteUser:{
+    url:`${backendDomain}/api/users/delete-user`,
+    method:"delete"
+   },
    updateUser:{
     url:`${backendDomain}/api/users/update-user`,
     method:"post"

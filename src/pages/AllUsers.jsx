@@ -41,6 +41,21 @@ const fetchAllUsers = async()=>{
     
 }
 
+const handleDeleteUser = async (id)=>{
+    const fetchResponse  =  await fetch(SummaryAPI.deleteUser.url, {
+        method: SummaryAPI.deleteUser.method,
+        credentials:"include",
+        headers:{
+                "content-type" : "application/json",
+                Authorization : `Bearer ${token}`
+            }
+    })
+
+    console.log("delete response", fetchResponse)
+    fetchAllUsers()
+
+}
+
 useEffect(()=>{
    fetchAllUsers()
 },[])
@@ -77,7 +92,7 @@ useEffect(()=>{
                                     } >
                                     <FiEdit />
                                     </button>
-                                    <button className='bg-green-200, p-2 rounded-full cursor-pointer hover:bg-green-500'><MdDelete />
+                                    <button className='bg-green-200, p-2 rounded-full cursor-pointer hover:bg-green-500' onClick={handleDeleteUser(el._id)}><MdDelete />
                                     </button>
                                 </td>
                             </tr>
