@@ -4,12 +4,15 @@ import SummaryAPI from "../common";
 const DeleteUser = async (userId, token, fetchAllUsers) => {
 
   try {
-    const response = await fetch(`${SummaryAPI.deleteUser.url}/${userId}`, {
+    const response = await fetch(SummaryAPI.deleteUser.url, {
       method: SummaryAPI.deleteUser.method,
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      body:{
+        userId:userId
+      }
     });
 
     const data = await response.json();
