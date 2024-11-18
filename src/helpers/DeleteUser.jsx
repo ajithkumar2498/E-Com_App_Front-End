@@ -10,7 +10,7 @@ const DeleteUser = async (userId, token, fetchAllUsers) => {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body:{userId}
+      body:JSON.stringify({ userId })
     });
 
     const data = await response.json();
