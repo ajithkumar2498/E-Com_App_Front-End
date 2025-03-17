@@ -23,8 +23,6 @@ const Header = () => {
   const searchQuery = URLsearch.getAll("q")
   const[search, setSearch]=useState(searchQuery)
 
-  console.log(user)
-
   const handleLogout = async () => {
     const token = sessionStorage.getItem("token"); // Retrieve token from sessionStorage
   

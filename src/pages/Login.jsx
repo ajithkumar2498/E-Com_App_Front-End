@@ -29,32 +29,73 @@ export const Login = () => {
         })
     }
     
-    const handleSubmit = async (e)=>{
-        e.preventDefault()
-        const dataResponse = await fetch(SummaryAPI.SignIn.url,{
-            method: SummaryAPI.SignIn.method,
-            credentials: 'include',
-            headers:{
-                "content-type":"application/json"
-            },
-            body:JSON.stringify(data)
-        })
+    // const handleSubmit = async (e)=>{
+    //     e.preventDefault()
+    //     const dataResponse = await fetch(SummaryAPI.SignIn.url,{
+    //         method: SummaryAPI.SignIn.method,
+    //         credentials: 'include',
+    //         headers:{
+    //             "content-type":"application/json"
+    //         },
+    //         body:JSON.stringify(data)
+    //     })
 
-        const data1 = await dataResponse.json()
-        if(data1.success){
-            sessionStorage.setItem("token", data1.data)
-            console.log("Token stored:", data1.data);
-            toast.success(data1.message)
-            await new Promise((resolve) => setTimeout(resolve, 300));
-            fetchUserDetails()
-            fetchUserAddToCart()
-            navigate('/')
-        }
-        if(data1.error){
-            toast.success(data1.error)
-        }
+    //     const data1 = await dataResponse.json()
+    //     sessionStorage.setItem("token", data1.data)
+    //     if(data1.success){
+    //         toast.success(data1.message)
+    //         await new Promise((resolve) => setTimeout(resolve, 300));
+    //         fetchUserDetails()
+    //         fetchUserAddToCart()
+    //         navigate('/')
+    //     }
+    //     if(data1.error){
+    //         toast.success(data1.error)
+    //     }
        
-    }
+    // }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        try {
+            const dataResponse = await fetch(SummaryAPI.SignIn.url, {
+                method: SummaryAPI.SignIn.method,
+                credentials: "include",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+    
+            const data1 = await dataResponse.json();
+    
+            if (data1.success) {
+                // Ensure token is stored before making other API requests
+                sessionStorage.setItem("token", data1.data);
+                console.log("Token stored:", data1.data);
+    
+                toast.success(data1.message);
+    
+                // Wait for storage before making API requests
+                await new Promise((resolve) => setTimeout(resolve, 100));
+    
+                fetchUserDetails();
+                fetchUserAddToCart();
+                navigate("/");
+            }
+    
+            if (data1.error) {
+                toast.error(data1.error);
+            }
+        } catch (error) {
+            console.error("Login Error:", error);
+            toast.error("Something went wrong. Please try again.");
+        }
+    };
+    
+
+
   return <>
     <section id='login'>
         <div className="mx-auto container p-4">
