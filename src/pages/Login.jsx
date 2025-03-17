@@ -41,12 +41,14 @@ export const Login = () => {
         })
 
         const data1 = await dataResponse.json()
-        sessionStorage.setItem("token",data1.data)
         if(data1.success){
+            sessionStorage.setItem("token", data1.data)
+            console.log("Token stored:", data1.data);
             toast.success(data1.message)
-            navigate('/')
             fetchUserDetails()
+            await new Promise((resolve) => setTimeout(resolve, 100));
             fetchUserAddToCart()
+            navigate('/')
         }
         if(data1.error){
             toast.success(data1.error)
