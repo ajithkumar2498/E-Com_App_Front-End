@@ -45,8 +45,8 @@ export const Login = () => {
             sessionStorage.setItem("token", data1.data)
             console.log("Token stored:", data1.data);
             toast.success(data1.message)
-            fetchUserDetails()
             await new Promise((resolve) => setTimeout(resolve, 100));
+            fetchUserDetails()
             fetchUserAddToCart()
             navigate('/')
         }
