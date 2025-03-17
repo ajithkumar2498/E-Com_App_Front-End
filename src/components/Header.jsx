@@ -14,7 +14,6 @@ import Context from '../context';
 
 const Header = () => {
   const user = useSelector(state=>state?.user?.user)
-  console.log("user",user)
   const dispatch = useDispatch()
   const[menuDisplay, SetMenuDisplay] = useState(false)
   const context = useContext(Context)
@@ -24,9 +23,10 @@ const Header = () => {
   const searchQuery = URLsearch.getAll("q")
   const[search, setSearch]=useState(searchQuery)
 
+  console.log(user)
+
   const handleLogout = async () => {
     const token = sessionStorage.getItem("token"); // Retrieve token from sessionStorage
-    console.log(token)
   
     if (!token) {
       toast.error("No token found. Please log in again.");
